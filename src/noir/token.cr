@@ -7,7 +7,7 @@ module Noir
   end
 
   module Tokens
-    def self.each_token
+    def self.each_token(&)
       {% for const in @type.constants %}
         yield {{const}}
         {{const}}.each_sub_token_all do |t|

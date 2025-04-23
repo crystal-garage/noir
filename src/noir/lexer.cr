@@ -72,21 +72,21 @@ abstract class Noir::Lexer
     name : Symbol?,
     rules : Array(Rule) do
     # :nodoc:
-    def self.build(name : Symbol? = nil)
+    def self.build(name : Symbol? = nil, &)
       builder = Builder.new([] of Rule)
       with builder yield
       new(name, builder.rules)
     end
 
     # :nodoc:
-    def self.prepend(name : Symbol?, state : State)
+    def self.prepend(name : Symbol?, state : State, &)
       builder = Builder.new(state.rules.dup)
       with builder yield
       new(name, builder.rules)
     end
 
     # :nodoc:
-    def self.append(name : Symbol?, state : State)
+    def self.append(name : Symbol?, state : State, &)
       builder = Builder.new([] of Rule)
       with builder yield
       new(name, builder.rules.concat(state.rules))
