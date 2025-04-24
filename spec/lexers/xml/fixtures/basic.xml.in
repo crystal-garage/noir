@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <element attribute="value">
+    <nested>Content</nested>
+  </element>
+  <!-- This is a comment -->
+  <![CDATA[This is CDATA content]]>
+  <empty-element/>
+</root>

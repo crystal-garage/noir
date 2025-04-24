@@ -7,7 +7,7 @@ class Noir::Scanner
   end
 
   def scan(re : Regex) : Regex::MatchData?
-    if m = re.match_at_byte_index(reader.string, reader.pos, Regex::Options::ANCHORED)
+    if m = re.match_at_byte_index(reader.string, reader.pos, Regex::MatchOptions::ANCHORED)
       @reader.pos = m.byte_end 0
       m
     end
