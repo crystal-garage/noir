@@ -16,8 +16,8 @@ class Noir::Lexers::XML < Noir::Lexer
   # - Followed by letters, digits, hyphens, underscores, periods, or colons
   # - Using \p{L} for any Unicode letter
   NAME_START = /[\p{L}_:]/
-  NAME_CHAR = /[\p{L}\d\-_.:]/
-  XML_NAME = /#{NAME_START}#{NAME_CHAR}*/
+  NAME_CHAR  = /[\p{L}\d\-_.:]/
+  XML_NAME   = /#{NAME_START}#{NAME_CHAR}*/
 
   state :root do
     rule /[^<&]+/, Text
