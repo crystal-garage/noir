@@ -22,13 +22,13 @@ class Noir::Lexers::XML < Noir::Lexer
     rule /<\//, Name::Tag, :tag_end
     rule /</, Name::Tag, :tag_start
 
-    rule %r(<\s*[a-zA-Z0-9:-]+), Name::Tag, :tag   # opening tags
-    rule %r(<\s*/\s*[a-zA-Z0-9:-]+\s*>), Name::Tag # closing tags
+    rule %r(<\s*[a-zA-Z0-9_:-]+), Name::Tag, :tag   # opening tags
+    rule %r(<\s*/\s*[a-zA-Z0-9_:-]+\s*>), Name::Tag # closing tags
   end
 
   state :tag_end do
     mixin :tag_end_end
-    rule /[a-zA-Z0-9:-]+/ do |m|
+    rule /[a-zA-Z0-9_:-]+/ do |m|
       m.token Name::Tag
       m.goto :tag_end_end
     end
@@ -42,7 +42,7 @@ class Noir::Lexers::XML < Noir::Lexer
   state :tag_start do
     rule /\s+/, Text
 
-    rule /[a-zA-Z0-9:-]+/ do |m|
+    rule /[a-zA-Z0-9_:-]+/ do |m|
       m.token Name::Tag
       m.goto :tag
     end
