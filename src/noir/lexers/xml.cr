@@ -11,6 +11,14 @@ class Noir::Lexers::XML < Noir::Lexer
     application/rss+xml application/svg+xml
   )
 
+  # XML name pattern:
+  # - Starts with letter, underscore or colon
+  # - Followed by letters, digits, hyphens, underscores, periods, or colons
+  # - Using \p{L} for any Unicode letter
+  NAME_START = /[\p{L}_:]/
+  NAME_CHAR = /[\p{L}\d\-_.:]/
+  XML_NAME = /#{NAME_START}#{NAME_CHAR}*/
+
   state :root do
     rule /[^<&]+/, Text
     rule /&\S*?;/, Name::Entity
@@ -22,13 +30,13 @@ class Noir::Lexers::XML < Noir::Lexer
     rule /<\//, Name::Tag, :tag_end
     rule /</, Name::Tag, :tag_start
 
-    rule %r(<\s*[a-zA-Z0-9_:-]+), Name::Tag, :tag   # opening tags
-    rule %r(<\s*/\s*[a-zA-Z0-9_:-]+\s*>), Name::Tag # closing tags
+    rule %r(<\s*#{XML_NAME}), Name::Tag, :tag   # opening tags
+    rule %r(<\s*/\s*#{XML_NAME}\s*>), Name::Tag # closing tags
   end
 
   state :tag_end do
     mixin :tag_end_end
-    rule /[a-zA-Z0-9_:-]+/ do |m|
+    rule XML_NAME do |m|
       m.token Name::Tag
       m.goto :tag_end_end
     end
@@ -42,7 +50,7 @@ class Noir::Lexers::XML < Noir::Lexer
   state :tag_start do
     rule /\s+/, Text
 
-    rule /[a-zA-Z0-9_:-]+/ do |m|
+    rule XML_NAME do |m|
       m.token Name::Tag
       m.goto :tag
     end
@@ -58,8 +66,8 @@ class Noir::Lexers::XML < Noir::Lexer
 
   state :tag do
     rule /\s+/, Text
-    rule /[a-zA-Z0-9_:-]+\s*=\s*/, Name::Attribute, :attr
-    rule /[a-zA-Z0-9_:-]+/, Name::Attribute
+    rule /#{XML_NAME}\s*=\s*/, Name::Attribute, :attr
+    rule XML_NAME, Name::Attribute
     rule %r(/?\s*>), Name::Tag, :pop!
   end
 
