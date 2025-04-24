@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <text>
+    &lt;This is a test&gt;
+    &amp; with entities &quot;like this&quot;
+    &apos;and this&apos;
+  </text>
+  <numbers>
+    &#x41; &#x42; &#x43;
+    &#65; &#66; &#67;
+  </numbers>
+</document>
