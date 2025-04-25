@@ -25,8 +25,51 @@ Usage:
 Command:
     highlight                        highlight FILENAME content
     style                            print THEME style as CSS
-    help                             show this help
-    version                          show ET NOIR version
+    help                            show this help
+    version                         show ET NOIR version
+```
+
+## Development
+
+### Adding a New Lexer
+
+1. Create a new lexer file in `src/noir/lexers/`:
+   ```crystal
+   require "../lexer"
+
+   class Noir::Lexers::YourLexer < Noir::Lexer
+     tag "yourlang"                    # Language tag
+     aliases %w(yl)                    # Optional aliases
+     filenames %w(*.yl *.yourlang)     # File extensions
+     mimetypes %w(text/x-yourlang)     # MIME types
+
+     state :root do
+       # Define your lexer rules here
+     end
+   end
+   ```
+
+2. Add your lexer to `etnoir/src/etnoir/lexers.cr`
+
+3. Create specs in `spec/lexers/yourlang/`:
+   - Create test fixtures in `spec/lexers/yourlang/fixtures/`
+   - Add `yourlang_spec.cr` with your test cases
+
+### Testing
+
+Run specific lexer tests:
+```console
+$ crystal spec spec/lexers/yourlang/
+```
+
+Update test fixtures:
+```console
+$ UPDATE_FIXTURE=1 crystal spec spec/lexers/yourlang/
+```
+
+Run all tests:
+```console
+$ crystal spec
 ```
 
 ## Note
