@@ -44,6 +44,28 @@ formatter = Noir::Formatters::TerminalRGB.new(theme, io)
 Noir.highlight(code, lexer: lexer, formatter: formatter)
 ```
 
+## Supported Languages
+
+NOIR supports syntax highlighting for the following languages:
+
+- Crystal (`.cr`)
+- CSS (`.css`)
+- Elm (`.elm`)
+- HTML (`.html`, `.htm`, `.xhtml`)
+- JavaScript (`.js`)
+- JSON (`.json`)
+- Python (`.py`, `.pyw`)
+- Ruby (`.rb`, `.ruby`, `.rbw`, `.rake`, `.gemspec`)
+- XML (`.xml`, `.xsl`, `.rss`, `.xslt`, `.xsd`, `.wsdl`, `.svg`)
+
+## Supported Themes
+
+NOIR comes with the following themes:
+
+- Dracula - Dark theme with vibrant colors
+- Monokai - Dark theme with bright colors
+- Solarized - Light and dark variants available
+
 ## CLI
 
 [ET NOIR](etnoir/) is CLI tool for NOIR. It can be installed with these commands:
