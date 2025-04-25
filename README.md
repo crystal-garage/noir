@@ -2,6 +2,48 @@
 
 Syntax Highlight Library for [Crystal](https://crystal-lang.org)
 
+## Usage
+
+Add to your `shard.yml`:
+```yaml
+dependencies:
+  noir:
+    github: MakeNowJust/noir
+```
+
+Basic usage:
+```crystal
+require "noir"
+
+# Get a lexer by language name
+lexer = Noir.find_lexer("xml")
+
+# Choose a formatter (HTML, HTML-inline, or Terminal-RGB)
+formatter = Noir::Formatters::HTML.new(io)
+
+# Highlight the code
+Noir.highlight(code, lexer: lexer, formatter: formatter)
+```
+
+Using with custom theme:
+```crystal
+# Get a theme by name
+theme = Noir.find_theme("monokai")
+
+# Create HTML formatter with inline styles
+formatter = Noir::Formatters::HTMLInline.new(theme, io)
+
+# Highlight with custom theme
+Noir.highlight(code, lexer: lexer, formatter: formatter)
+```
+
+Terminal output:
+```crystal
+# Use Terminal-RGB formatter for colored console output
+formatter = Noir::Formatters::TerminalRGB.new(theme, io)
+Noir.highlight(code, lexer: lexer, formatter: formatter)
+```
+
 ## CLI
 
 [ET NOIR](etnoir/) is CLI tool for NOIR. It can be installed with these commands:
