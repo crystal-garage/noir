@@ -1,0 +1,67 @@
+-- This is a single line comment
+/* This is a
+   multi-line comment */
+
+-- Basic SELECT statement
+SELECT column1, column2
+FROM table_name
+WHERE condition = 'value'
+GROUP BY column1
+HAVING COUNT(*) > 1
+ORDER BY column2 DESC
+LIMIT 10;
+
+-- INSERT statement
+INSERT INTO users (name, email, age)
+VALUES ('John Doe', 'john@example.com', 30);
+
+-- UPDATE statement
+UPDATE users
+SET name = 'Jane Doe',
+    email = 'jane@example.com'
+WHERE id = 1;
+
+-- DELETE statement
+DELETE FROM users
+WHERE id = 1;
+
+-- JOIN example
+SELECT u.name, o.order_id
+FROM users u
+INNER JOIN orders o ON u.id = o.user_id
+LEFT JOIN products p ON o.product_id = p.id
+WHERE o.status = 'completed';
+
+-- Subquery example
+SELECT name, email
+FROM users
+WHERE id IN (
+    SELECT user_id
+    FROM orders
+    WHERE total > 100
+);
+
+-- Function calls
+SELECT
+    COUNT(*) as total_users,
+    AVG(age) as average_age,
+    MAX(created_at) as latest_user,
+    CONCAT(first_name, ' ', last_name) as full_name
+FROM users;
+
+-- Data types and constraints
+CREATE TABLE products (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN DEFAULT TRUE,
+    tags JSON,
+    CONSTRAINT price_check CHECK (price > 0)
+);
+
+-- Parameters
+SELECT * FROM users WHERE id = $1;
+SELECT * FROM users WHERE name = :name;
+SELECT * FROM users WHERE email = ?;
