@@ -74,6 +74,11 @@ class Noir::Lexers::SQL < Noir::Lexer
     # Operators
     rule %r([+\-*/%&|^=<>!~]), Operator
 
+    # Parameters (must be before punctuation)
+    rule %r(\$[0-9]+), Name::Variable
+    rule %r(\?[0-9]*), Name::Variable
+    rule %r(:\b[a-zA-Z_][a-zA-Z0-9_]*\b), Name::Variable
+
     # Punctuation
     rule %r(\.), Punctuation
     rule %r([,;:()\[\]{}]), Punctuation
