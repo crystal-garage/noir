@@ -56,6 +56,7 @@ NOIR supports syntax highlighting for the following languages:
 - JSON (`.json`)
 - Python (`.py`, `.pyw`)
 - Ruby (`.rb`, `.ruby`, `.rbw`, `.rake`, `.gemspec`)
+- SQL (`.sql`)
 - XML (`.xml`, `.xsl`, `.rss`, `.xslt`, `.xsd`, `.wsdl`, `.svg`)
 
 ## Supported Themes
