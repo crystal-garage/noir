@@ -67,12 +67,14 @@ class Noir::Lexers::SQL < Noir::Lexer
     rule %r("), Name::Variable, :double_quoted_string
 
     # Numbers
-    rule %r(\d+), Num::Integer
     rule %r(\d*\.\d+), Num::Float
     rule %r(\d+e[+-]?\d+), Num::Float
+    rule %r(\d+), Num::Integer
 
     # Operators
     rule %r([+\-*/%&|^=<>!~]), Operator
+
+    # Punctuation
     rule %r(\.), Punctuation
     rule %r([,;:()\[\]{}]), Punctuation
 
@@ -81,6 +83,7 @@ class Noir::Lexers::SQL < Noir::Lexer
 
     # Types
     rule %r(\b(#{TYPES.join('|')})\b)i, Keyword::Type
+    rule %r(\b(#{TYPES.join('|')})\([0-9,]+\)\b)i, Keyword::Type
 
     # Functions
     rule %r(\b(#{FUNCTIONS.join('|')})\b)i, Name::Function
