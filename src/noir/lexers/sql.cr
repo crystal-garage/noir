@@ -77,11 +77,11 @@ class Noir::Lexers::SQL < Noir::Lexer
     # Parameters (must be before punctuation)
     rule %r(\$[0-9]+), Name::Variable
     rule %r(\?[0-9]*), Name::Variable
-    rule %r(:\b[a-zA-Z_][a-zA-Z0-9_]*\b), Name::Variable
+    rule %r(:[a-zA-Z_][a-zA-Z0-9_]*), Name::Variable
 
-    # Punctuation
+    # Punctuation (excluding colon which is handled by parameters)
     rule %r(\.), Punctuation
-    rule %r([,;:()\[\]{}]), Punctuation
+    rule %r([,;()\[\]{}]), Punctuation
 
     # Keywords (must be before identifiers to prevent partial matches)
     rule %r(\b(#{KEYWORDS.join('|')})\b)i, Keyword
@@ -95,11 +95,6 @@ class Noir::Lexers::SQL < Noir::Lexer
 
     # Identifiers (including table and column names)
     rule %r([a-zA-Z_][a-zA-Z0-9_]*), Name
-
-    # Parameters
-    rule %r(\$[0-9]+), Name::Variable
-    rule %r(\?[0-9]*), Name::Variable
-    rule %r(:[a-zA-Z_][a-zA-Z0-9_]*), Name::Variable
   end
 
   state :multiline_comment do
